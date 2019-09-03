@@ -1,6 +1,6 @@
---
 applications:
-  - name: JenkinTest
+  -
+    name: JenkinTest
     instance: 1
     memory: 800
     path: build/libs/exchange-service-0.0.1-SNAPSHOT.jar
