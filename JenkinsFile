@@ -22,17 +22,18 @@ pipeline {
             }
         }
         stage('Deploy') {
-                    steps {
+               steps {
                        withCredentials([[
                        $class           :   'UsernamePasswordMultiBinding',
                        credentialsId    :   'PCF_LOGIN',
                        usernameVariable :   'USERNAME',
                        passwordVariable :   'PASSWORD']]) {
 
-                       sh 'cf login -a http://api.run.pivotal.io -u $USERNAME -p $PASSWORD'
-                       sh 'cf push'
+                            sh 'cf login -a http://api.run.pivotal.io -u $USERNAME -p $PASSWORD'
+                            sh 'cf target -o xyz.com -s development'
+                            sh 'cf push exchange-service -p build/libs/exchange-service-0.0.1-SNAPSHOT.jar -b java_buildpack --random-route'
                        }
-                    }
-                }
+               }
+         }
     }
 }
